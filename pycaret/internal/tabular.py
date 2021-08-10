@@ -2039,9 +2039,9 @@ def compare_models(
             monitor_rows=monitor_rows,
         )
 
-        display.display_progress()
-        display.display_monitor()
-        display.display_master_display()
+        #display.display_progress()
+        #display.display_monitor()
+        #display.display_master_display()
 
     greater_is_worse_columns = {
         v.display_name for k, v in _all_metrics.items() if not v.greater_is_better
@@ -2050,7 +2050,7 @@ def compare_models(
 
     np.random.seed(seed)
 
-    display.move_progress()
+    #display.move_progress()
 
     # defining sort parameter (making Precision equivalent to Prec. )
 
@@ -2065,8 +2065,8 @@ def compare_models(
     MONITOR UPDATE STARTS
     """
 
-    display.update_monitor(1, "Loading Estimator")
-    display.display_monitor()
+    #display.update_monitor(1, "Loading Estimator")
+    #display.display_monitor()
 
     """
     MONITOR UPDATE ENDS
@@ -2083,7 +2083,7 @@ def compare_models(
         if exclude:
             model_library = [x for x in model_library if x not in exclude]
 
-    display.move_progress()
+    #display.move_progress()
 
     # create URI (before loop)
     import secrets
@@ -2130,19 +2130,19 @@ def compare_models(
             break
         total_runtime_start = runtime_start
 
-        display.move_progress()
+        #display.move_progress()
 
         """
         MONITOR UPDATE STARTS
         """
 
-        display.update_monitor(2, model_name)
-        display.display_monitor()
+        #display.update_monitor(2, model_name)
+        #display.display_monitor()
 
         """
         MONITOR UPDATE ENDS
         """
-        display.replace_master_display(None)
+        #display.replace_master_display(None)
 
         logger.info(
             "SubProcess create_model() called =================================="
@@ -2152,7 +2152,7 @@ def compare_models(
                 estimator=model,
                 system=False,
                 verbose=False,
-                display=display,
+                #display=display,
                 fold=fold,
                 round=round,
                 cross_validation=cross_validation,
@@ -2167,7 +2167,7 @@ def compare_models(
                     estimator=model,
                     system=False,
                     verbose=False,
-                    display=display,
+                    #display=display,
                     fold=fold,
                     round=round,
                     cross_validation=cross_validation,
@@ -2187,7 +2187,7 @@ def compare_models(
                         estimator=model,
                         system=False,
                         verbose=False,
-                        display=display,
+                        #display=display,
                         fold=fold,
                         round=round,
                         cross_validation=cross_validation,
@@ -2236,11 +2236,11 @@ def compare_models(
             [dict(selector="th", props=[("text-align", "left")])]
         )
 
-        display.replace_master_display(master_display_)
+        #display.replace_master_display(master_display_)
 
-        display.display_master_display()
+        #display.display_master_display()
 
-    display.move_progress()
+    #display.move_progress()
 
     def highlight_max(s):
         to_highlight = s == s.max()
@@ -2277,10 +2277,10 @@ def compare_models(
     else:
         compare_models_ = pd.DataFrame().style
 
-    display.update_monitor(1, "Compiling Final Models")
-    display.display_monitor()
+    #display.update_monitor(1, "Compiling Final Models")
+    #display.display_monitor()
 
-    display.move_progress()
+    #display.move_progress()
 
     sorted_models = []
 
@@ -2303,8 +2303,8 @@ def compare_models(
             full_logging = False
 
             if index in n_select_range:
-                display.update_monitor(2, _get_model_name(model))
-                display.display_monitor()
+                #display.update_monitor(2, _get_model_name(model))
+                #display.display_monitor()
                 model, model_fit_time = create_model_supervised(
                     estimator=model,
                     system=False,
@@ -2333,7 +2333,7 @@ def compare_models(
                         log_plots=log_plots_param if full_logging else False,
                         log_holdout=full_logging,
                         URI=URI,
-                        display=display,
+                        #display=display,
                     )
                 except:
                     logger.error(
@@ -2344,12 +2344,12 @@ def compare_models(
     if len(sorted_models) == 1:
         sorted_models = sorted_models[0]
 
-    display.display(compare_models_, clear=True)
+    #display.display(compare_models_, clear=True)
 
     pd.reset_option("display.max_columns")
 
     # store in display container
-    display_container.append(compare_models_.data)
+    #display_container.append(compare_models_.data)
 
     logger.info(f"create_model_container: {len(create_model_container)}")
     logger.info(f"master_model_container: {len(master_model_container)}")
@@ -2360,7 +2360,7 @@ def compare_models(
         "compare_models() succesfully completed......................................"
     )
 
-    return sorted_models
+    return master_display_
 
 
 def create_model_unsupervised(
